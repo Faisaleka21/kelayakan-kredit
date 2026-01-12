@@ -1,0 +1,568 @@
+:root {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #1f2933;
+  background-color: #f5f7fb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 260px;
+  background: #111827;
+  color: #e5e7eb;
+  padding: 24px 20px;
+}
+
+.sidebar h2 {
+  font-size: 18px;
+  margin: 0 0 24px;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sidebar a {
+  color: #e5e7eb;
+  text-decoration: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.sidebar a.active,
+.sidebar a:hover {
+  background: #1f2937;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  background: #ffffff;
+  padding: 16px 24px;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  box-shadow: 0 1px 0 rgba(16, 24, 40, 0.04);
+}
+
+.topbar h1 {
+  font-size: 20px;
+  margin: 0;
+}
+
+.topbar .user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  /* pointer-events: none; Removed to allow clicking the overlay to close */
+}
+
+.sidebar-overlay.active {
+  display: block;
+}
+
+/* Page toggle buttons (replace navigation links with buttons) */
+.page-toggle {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.page-toggle button {
+  background: transparent;
+  color: #2563eb;
+  border: 1px solid transparent;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.page-toggle button.active {
+  background: #2563eb;
+  color: #ffffff;
+  border-color: rgba(37, 99, 235, 0.12);
+}
+
+.menu-toggle {
+  display: none;
+  padding: 8px;
+  border-radius: 6px;
+}
+
+.menu-toggle:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 960px) {
+  .menu-toggle {
+    display: flex;
+  }
+  
+  .menu-toggle > * {
+    pointer-events: none;
+  }
+}
+
+button,
+.btn {
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+button.secondary,
+.btn.secondary {
+  background: #6b7280;
+}
+
+button.danger,
+.btn.danger {
+  background: #dc2626;
+}
+
+button.ghost,
+.btn.ghost {
+  background: transparent;
+  color: #2563eb;
+}
+
+.content {
+  padding: 24px;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+}
+
+.grid {
+  display: grid;
+  gap: 16px;
+}
+
+.grid-2 {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+label {
+  font-size: 13px;
+  color: #4b5563;
+  margin-bottom: 6px;
+  display: block;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.table th,
+.table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+}
+
+.table th {
+  background: #f3f4f6;
+  font-weight: 600;
+}
+
+.badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  display: inline-block;
+}
+
+.badge.success {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.badge.danger {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.auth-view .sidebar,
+.auth-view .topbar {
+  display: none;
+}
+
+.auth-view .content {
+  padding: 0;
+  max-width: none;
+  margin: 0;
+}
+
+/* Modern Login Styles */
+.login-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  padding: 20px;
+}
+
+.login-background {
+  position: fixed; /* Changed to fixed to cover viewport */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: linear-gradient(135deg, #f5f7fb 0%, #e2e8f0 100%);
+}
+
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.6;
+  animation: float 10s infinite ease-in-out;
+}
+
+.shape-1 {
+  width: 400px;
+  height: 400px;
+  background: #2563eb;
+  top: -100px;
+  right: -100px;
+  animation-delay: 0s;
+}
+
+.shape-2 {
+  width: 300px;
+  height: 300px;
+  background: #60a5fa;
+  bottom: -50px;
+  left: -50px;
+  animation-delay: -5s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(30px, -50px); }
+}
+
+.login-card.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+  padding: 40px;
+  border-radius: 24px;
+  width: 100%;
+  max-width: 420px;
+  transform: translateY(0);
+  animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.animate-title {
+  margin: 0 0 8px;
+  font-size: 28px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.animate-subtitle {
+  font-size: 14px;
+}
+
+.input-group label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.input-group input {
+  padding: 12px 16px;
+  border: 2px solid transparent;
+  background: rgba(255, 255, 255, 0.8);
+  transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+  background: #ffffff;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+  outline: none;
+}
+
+.btn-login {
+  width: 100%;
+  padding: 14px;
+  font-weight: 600;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: transform 0.2s;
+  border-radius: 12px;
+  margin-top: 12px;
+}
+
+.btn-login:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+.helper-text {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.action-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.print-link {
+  text-decoration: none;
+  color: #2563eb;
+}
+
+
+
+/* Mobile / small devices improvements */
+html,
+body {
+  -webkit-font-smoothing: antialiased;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 960px) {
+  .app {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sidebar {
+    /* Mobile Drawer Style */
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 260px;
+    background: #111827;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 1001;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .sidebar.active {
+    transform: translateX(0);
+  }
+
+  .sidebar nav {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .sidebar a {
+    white-space: normal;
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+
+  .topbar {
+    padding: 12px 16px;
+  }
+
+  .content {
+    padding: 16px;
+  }
+
+  .auth-view .content {
+    padding: 24px 16px;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .card {
+    padding: 14px;
+    border-radius: 10px;
+  }
+
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+    padding: 12px 14px;
+    font-size: 15px;
+    border-radius: 10px;
+  }
+  
+  /* Disable float animation on mobile to prevent shaking/performance issues */
+  .shape {
+    animation: none;
+  }
+}
+
+/* Desktop: use real table layout and make cards/tables span full width */
+@media (min-width: 961px) {
+  .table {
+    display: table;
+    width: 100%;
+    overflow-x: visible;
+  }
+
+  .card {
+    width: 100%;
+    max-width: none;
+  }
+
+  .content {
+    padding: 24px 32px;
+  }
+}
+
+/* Prevent accidental horizontal overflow */
+img,
+table,
+.card,
+.content,
+.main {
+  max-width: 100%;
+}
+
+/* Desktop: keep sidebar fixed/visible when scrolling */
+@media (min-width: 961px) {
+  .app {
+    align-items: flex-start;
+  }
+
+  .sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    align-self: flex-start;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    z-index: 10;
+    box-shadow: 2px 0 6px rgba(2, 6, 23, 0.04);
+  }
+
+  .main {
+    min-height: 100vh;
+  }
+}
+
+/* Improve scrolling behavior in nested flex layout and on mobile */
+/* Allow the main/content area to shrink so its child can scroll */
+.main {
+  min-height: 0;
+}
+
+.content {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Make tables scrollable on small screens instead of breaking layout */
+@media (max-width: 960px) {
+  .table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Prevent page-level horizontal overflow */
+body {
+  overflow-x: hidden;
+}
+
+/* Slightly larger touch targets on mobile */
+@media (max-width: 960px) {
+  .sidebar a {
+    padding: 10px 12px;
+  }
+
+  .topbar .user-info > * {
+    min-width: 36px;
+  }
+}
